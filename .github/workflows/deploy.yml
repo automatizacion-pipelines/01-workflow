@@ -1,17 +1,23 @@
-name: workflow2
+name: Helm Rollback Manual
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
+    inputs:
+      revision:
+        description: 'Número de revisión (opcional, por defecto se hace rollback a la anterior)'
+        required: false
 
 jobs:
-  automatico:
+  rollback:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
     steps:
-      - name: Decir hola
-        run: echo "Hola mundo"
-
-  
+      - name: Ejecutar rollback
+        run: |
+          echo "Iniciando rollback del release 'mi-aplicacion'"
+          if [ -z "${{ github.event.inputs.revision }}" ]; then
+            echo "No se especificó una revisión. Se usará la anterior por defecto."
+            # helm rollback mi-aplicacion --namespace tu-namespace
+          else
+            echo "Haciendo rollback a la revisión ${{ github.event.inputs.revision }}"
+            # helm rollback mi-aplicacion ${{ github.event.inputs.revision }} --namespace tu-namespace
+          fi
