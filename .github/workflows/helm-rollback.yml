@@ -3,18 +3,21 @@ name: Helm Rollback Manual
 on:
   workflow_dispatch:
     inputs:
-      release_name:
-        description: 'Nombre del release de Helm'
-        required: true
       revision:
-        description: 'Revisión a la que deseas hacer rollback'
-        required: true
+        description: 'Número de revisión (opcional, por defecto se hace rollback a la anterior)'
+        required: false
 
 jobs:
   rollback:
     runs-on: ubuntu-latest
     steps:
-      - name: Hacer rollback con Helm
+      - name: Ejecutar rollback
         run: |
-          echo "Haciendo rollback de ${{ github.event.inputs.release_name }} a la revisión ${{ github.event.inputs.revision }}"
-          # helm rollback ${{ github.event.inputs.release_name }} ${{ github.event.inputs.revision }} --namespace tu-namespace
+          echo "Iniciando rollback del release 'mi-aplicacion'"
+          if [ -z "${{ github.event.inputs.revision }}" ]; then
+            echo "No se especificó una revisión. Se usará la anterior por defecto."
+            # helm rollback mi-aplicacion --namespace tu-namespace
+          else
+            echo "Haciendo rollback a la revisión ${{ github.event.inputs.revision }}"
+            # helm rollback mi-aplicacion ${{ github.event.inputs.revision }} --namespace tu-namespace
+          fi
