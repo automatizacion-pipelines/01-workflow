@@ -9,6 +9,7 @@ on:
 jobs:
   automatico:
     runs-on: ubuntu-latest
+    if: github.event_name == 'push'
     steps:
       - name: Decir hola
         run: echo "Hola mundo desde workflow 2"
