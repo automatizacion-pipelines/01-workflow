@@ -17,6 +17,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Decir hola
-        run: echo "Hola mundo manual desde workflow 2"
+        run: echo "Hola mundo manual desde workflow 2 , sera que da"
   
   
