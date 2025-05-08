@@ -1,0 +1,16 @@
+name: workflow2
+
+on:
+  # push:
+  #   branches:
+  #     - develop
+  #     - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Decir hola
+        run: echo "Hola mundo desde workflow 2"
+  
