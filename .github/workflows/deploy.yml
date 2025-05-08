@@ -1,0 +1,17 @@
+name: workflow2
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  automatico:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - name: Decir hola
+        run: echo "Hola mundo"
+
+  
